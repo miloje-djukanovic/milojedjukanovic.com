@@ -1,0 +1,26 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	font-family: "Fira Code";
+}
+.content
+{
+	width: 900px;
+	margin: auto;
+}
+
+h1
+{
+	padding: 50px 0;
+	text-align: center;
+}
+
+pre code
+{
+	 background-color: #eee;
+	 border: 1px solid #999;
+	 display: block;
+	 white-space: pre;
+}
+
