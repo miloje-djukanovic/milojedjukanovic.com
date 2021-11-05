@@ -13,96 +13,251 @@
 
 			<h2>Dijkstra's algoritham</h2>
 			<pre><code>
-#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-#include &lt;limits.h&gt;
+#include &#x3C;stdio.h&#x3E;
+#include &#x3C;string.h&#x3E;
+#include &#x3C;limits.h&#x3E;
 #define NN 1024
 #define INF INT_MAX
 #define CLR( x, v ) memset( x, v, sizeof( x ) )
-	int graph[ NN ][ NN ], adj[ NN ][ NN ], deg[ NN ];
+
+int graph[ NN ][ NN ], adj[ NN ][ NN ], deg[ NN ];
 int visited[ NN ], dist[ NN ], pre[ NN ];
 
 int dijkstras( int n, int s, int f )
 {
-	CLR( visited, 0 );
-	CLR( dist, -1 );
-	CLR( pre, -1 );
+&#x9;CLR( visited, 0 );
+&#x9;CLR( dist, -1 );
+&#x9;CLR( pre, -1 );
 
-	visited[ s ] = 1;
-	dist[ s ] = 0;
-	pre[ s ] = s;
+&#x9;visited[ s ] = 1;
+&#x9;dist[ s ] = 0;
+&#x9;pre[ s ] = s;
 
-	int current_node = s;
-	int done = 0;
-	while( !done )
-	{
-		int min_dist = INF;
-		int next_node = current_node;
+&#x9;int current_node = s;
+&#x9;int done = 0;
+&#x9;while( !done )
+&#x9;{
+&#x9;&#x9;int min_dist = INF;
+&#x9;&#x9;int next_node = current_node;
 
-		for( int i = 0; i < deg[ current_node ]; i ++ )
-		{
-			if( !visited[ adj[ current_node ][ i ] ] )
-			{
-				if( graph[ current_node ][ adj[ current_node ][ i ] ] < min_dist )
-				{
-					min_dist = graph[ current_node ][ adj[ current_node ][ i ] ];
-					next_node = adj[ current_node ][ i ];
-				}
-			}
-		}
+&#x9;&#x9;for( int i = 0; i &#x3C; deg[ current_node ]; i ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;if( !visited[ adj[ current_node ][ i ] ] )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;if( graph[ current_node ][ adj[ current_node ][ i ] ] &#x3C; min_dist )
+&#x9;&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;&#x9;min_dist = graph[ current_node ][ adj[ current_node ][ i ] ];
+&#x9;&#x9;&#x9;&#x9;&#x9;next_node = adj[ current_node ][ i ];
+&#x9;&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;}
 
-		if( next_node == current_node )
-		{
-			break;
-		}
+&#x9;&#x9;if( next_node == current_node )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;break;
+&#x9;&#x9;}
 
-		dist[ next_node ] = dist[ current_node ] + graph[ current_node ][ next_node ];
-		pre[ next_node ] = current_node;
-		visited[ next_node ] = 1;
-		current_node = next_node;
+&#x9;&#x9;dist[ next_node ] = dist[ current_node ] + graph[ current_node ][ next_node ];
+&#x9;&#x9;pre[ next_node ] = current_node;
+&#x9;&#x9;visited[ next_node ] = 1;
+&#x9;&#x9;current_node = next_node;
 
-		done = 1;
-		for( int i = 0; i < n; i ++ )
-		{
-			done &= visited[ i ];
-		}
+&#x9;&#x9;done = 1;
+&#x9;&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;done &#x26;= visited[ i ];
+&#x9;&#x9;}
 
-	}
+&#x9;}
 
-	return dist[ f ];
+&#x9;return dist[ f ];
 }
 
 int main()
 {
-	int V, E;
-	while( scanf( "%d%d", &V, &E ) == 2 )
-	{
-		CLR( deg, 0 );
-		CLR( adj, -1 );
+&#x9;int V, E;
+&#x9;while( scanf( &#x22;%d%d&#x22;, &#x26;V, &#x26;E ) == 2 )
+&#x9;{
+&#x9;&#x9;CLR( deg, 0 );
+&#x9;&#x9;CLR( adj, -1 );
 
-		printf( "insert edges ->\n" );
-		for( int i = 0; i < E; i ++ )
-		{
-			int u, v, w;
-			scanf( "%d%d%d", &u, &v, &w );
+&#x9;&#x9;printf( &#x22;insert edges -&#x3E;\n&#x22; );
+&#x9;&#x9;for( int i = 0; i &#x3C; E; i ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;int u, v, w;
+&#x9;&#x9;&#x9;scanf( &#x22;%d%d%d&#x22;, &#x26;u, &#x26;v, &#x26;w );
 
-			graph[ u ][ v ] = w;
-			adj[ u ][ deg[ u ] ++ ] = v;
-		}
+&#x9;&#x9;&#x9;graph[ u ][ v ] = w;
+&#x9;&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
+&#x9;&#x9;}
 
-		int s, f;
-		printf( "insert start & finish ->\n" );
-		scanf( "%d%d", &s, &f );
+&#x9;&#x9;int s, f;
+&#x9;&#x9;printf( &#x22;insert start &#x26; finish -&#x3E;\n&#x22; );
+&#x9;&#x9;scanf( &#x22;%d%d&#x22;, &#x26;s, &#x26;f );
 
-		printf( "delta( %d, %d ) -> %d\n", s, f, dijkstras( V, s, f ) );
-		printf( "|%15s|%15s|%15s|\n", "vertex", "predecesor", "delta" );
-		for( int i = 0; i < V; i ++ )
-		{
-			printf( "|%15d|%15d|%15d|\n", i, pre[ i ], dist[ i ] );
-		}
-	}
+&#x9;&#x9;printf( &#x22;delta( %d, %d ) -&#x3E; %d\n&#x22;, s, f, dijkstras( V, s, f ) );
+&#x9;&#x9;printf( &#x22;|%15s|%15s|%15s|\n&#x22;, &#x22;vertex&#x22;, &#x22;predecesor&#x22;, &#x22;delta&#x22; );
+&#x9;&#x9;for( int i = 0; i &#x3C; V; i ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;printf( &#x22;|%15d|%15d|%15d|\n&#x22;, i, pre[ i ], dist[ i ] );
+&#x9;&#x9;}
+&#x9;}
 }
-				</code></pre>
+			</code></pre>
+
+			<h2>Bredth first search</h2>
+			<pre><code>
+#include &#x3C;stdio.h&#x3E;
+#include &#x3C;string.h&#x3E;
+#define CLR( x, v ) memset( x, v, sizeof( x ) )
+#define NN 1024
+
+int adj[ NN ][ NN ], deg[ NN ], pred[ NN ], queue[ NN ], in_queue[ NN ], path[ NN ];
+
+void solve( int start )
+{
+&#x9;CLR( in_queue, 0 ); CLR( queue, -1 ); CLR( pred, -1 );
+
+&#x9;queue[ 0 ] = start;
+&#x9;in_queue[ start ] = 1;
+
+&#x9;int at = 0, top = 1, current;
+
+&#x9;while( ( current = queue[ at ] ) != -1 )
+&#x9;{
+&#x9;&#x9;for( int j = 0; j &#x3C; deg[ current ]; j ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;int neighbour = adj[ current ][ j ];
+&#x9;&#x9;&#x9;if( !in_queue[ neighbour ] )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;pred[ neighbour ] = current;
+&#x9;&#x9;&#x9;&#x9;queue[ top ] = neighbour;
+&#x9;&#x9;&#x9;&#x9;in_queue[ neighbour ] = 1;
+&#x9;&#x9;&#x9;&#x9;top ++;
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;}
+&#x9;&#x9;at ++;
+&#x9;}
+}
+
+void reconstruct_path( int start, int end )
+{
+&#x9;if( pred[ end ] == -1 )
+&#x9;{
+&#x9;&#x9;printf( &#x22;No path from %d to %d.\n&#x22;, start, end );
+&#x9;&#x9;return;
+&#x9;}
+
+&#x9;int len = 0;
+&#x9;int next;
+&#x9;path[ len ] = end;
+
+&#x9;do
+&#x9;{
+&#x9;&#x9;next = pred[ path[ len ++ ] ];
+&#x9;&#x9;path[ len ] = next;
+&#x9;}
+&#x9;while( next != start );
+
+&#x9;printf( &#x22;Path form %d to %d === &#x22;, start, end );
+&#x9;printf( &#x22;%d&#x22;, start );
+&#x9;for( int i = len - 1; i &#x3E;= 0; i -- )
+&#x9;{
+&#x9;&#x9;printf( &#x22; -&#x3E; %d&#x22;, path[ i ] );
+&#x9;}
+&#x9;printf( &#x22;\n&#x22; );
+}
+
+void bfs( int start , int end)
+{
+&#x9;solve( start );
+&#x9;reconstruct_path( start, end );
+}
+
+int main()
+{
+&#x9;int V, E;
+&#x9;printf( &#x22;Input number of vertices and edges -&#x3E; &#x22; );
+&#x9;scanf( &#x22;%d%d&#x22;, &#x26;V, &#x26;E );
+
+&#x9;for( int i = 0; i &#x3C; E; i ++ )
+&#x9;{
+&#x9;&#x9;int u, v;
+
+&#x9;&#x9;printf( &#x22;Input an edge -&#x3E; &#x22; );
+&#x9;&#x9;scanf( &#x22;%d%d&#x22;, &#x26;u, &#x26;v );
+
+&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
+&#x9;&#x9;adj[ v ][ deg[ v ] ++ ] = u;
+&#x9;}
+
+&#x9;int start, end;
+&#x9;printf( &#x22;Input start and end -&#x3E; &#x22; );
+&#x9;scanf( &#x22;%d%d&#x22;, &#x26;start, &#x26;end );
+
+&#x9;bfs( start, end );
+}
+			</code></pre>
+
+			<h2>Depth first search</h2>
+			<pre><code>
+#include &#x3C;stdio.h&#x3E;
+#include &#x3C;string.h&#x3E;
+#define NN 1024
+#define CLR( x ) memset( x, 0, sizeof( x ) )
+
+int adj[ NN ][ NN ], deg[ NN ], visited[ NN ];
+
+void dfs( int current )
+{
+&#x9;if( visited[ current ] )
+&#x9;{
+&#x9;&#x9;return;
+&#x9;}
+
+&#x9;visited[ current ] = 1;
+&#x9;for( int i = 0; i &#x3C; deg[ current ]; i ++ )
+&#x9;{
+&#x9;&#x9;dfs( adj[ current ][ i ] );
+&#x9;}
+}
+
+int main()
+{
+&#x9;int V, E;
+
+&#x9;printf( &#x22;input number of vertecies -&#x3E; &#x22; );
+&#x9;scanf( &#x22;%d&#x22;, &#x26;V);
+
+&#x9;printf( &#x22;input number of edges -&#x3E; &#x22; );
+&#x9;scanf( &#x22;%d&#x22;, &#x26;E);
+
+&#x9;CLR( deg ); CLR( adj ); CLR( visited );
+
+&#x9;for( int i = 0; i &#x3C; E; i ++ )
+&#x9;{
+&#x9;&#x9;int u, v;
+&#x9;&#x9;printf( &#x22;input edge -&#x3E; &#x22; );
+&#x9;&#x9;scanf( &#x22;%d%d&#x22;, &#x26;u, &#x26;v );
+
+&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
+&#x9;&#x9;adj[ v ][ deg[ v ] ++ ] = u;
+&#x9;}
+
+&#x9;int start;
+
+&#x9;printf( &#x22;input start node -&#x3E; &#x22; );
+&#x9;scanf( &#x22;%d&#x22;, &#x26;start );
+
+&#x9;dfs( start );
+
+&#x9;printf( &#x22;|%15s|%15s|\n&#x22;, &#x22;vertex&#x22;, &#x22;visited&#x22; );
+&#x9;for( int i = 0; i &#x3C; V; i ++ )
+&#x9;{
+&#x9;&#x9;printf( &#x22;|%15d|%15d|\n&#x22;, i, visited[ i ] );
+&#x9;}
+}
+			</code></pre>
 
 		</div>
 	</body>
