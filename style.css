@@ -6,7 +6,7 @@
 }
 .content
 {
-	width: 900px;
+	width: 1000px;
 	margin: auto;
 }
 
@@ -18,9 +18,12 @@ h1
 
 pre code
 {
+	padding: 0 50px;
+	font-size: 15px;
 	 background-color: #eee;
 	 border: 1px solid #999;
 	 display: block;
 	 white-space: pre;
+	 text-align: left;
 }
 
