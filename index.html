@@ -9,10 +9,937 @@
 
 	<body>
 		<div class="content">
-			<h1>Code diary</h1>
+			<h1>Code Archive</h1>
 
-			<h2>Dijkstra's algoritham</h2>
-			<pre><code>
+<h2>../sorting_algorithams</h2>
+<h3>heap sort</h3>
+<pre><code>
+#include&#x3C;stdio.h&#x3E;
+#define MAX 10
+
+void swap( int&#x26; a, int&#x26; b )
+{
+&#x9;int temp = a;
+&#x9;a = b;
+&#x9;b = temp;
+}
+
+void heapify( int A[], int n, int parent )
+{
+&#x9;int left = 2 * parent;
+&#x9;int right = left + 1;
+&#x9;int largest = parent;
+
+&#x9;if( left &#x3C; n &#x26;&#x26; A[left] &#x3E; A[largest] )
+&#x9;{
+&#x9;&#x9;largest = left;
+&#x9;}
+
+&#x9;if( right &#x3C; n &#x26;&#x26; A[right] &#x3E; A[largest] )
+&#x9;{
+&#x9;&#x9;largest = right;
+&#x9;}
+
+&#x9;if(parent != largest)
+&#x9;{
+&#x9;&#x9;swap(A[parent], A[largest]);
+&#x9;&#x9;heapify( A, n, largest );
+&#x9;}
+}
+
+void sort( int A[], int n )
+{
+&#x9;for( int i = n / 2; i &#x3E;= 0; i -- )
+&#x9;{
+&#x9;&#x9;heapify( A, n, i );
+&#x9;}
+
+&#x9;for( int i = n - 1; i &#x3E; 0; i -- )
+&#x9;{
+&#x9;&#x9;swap( A[0], A[i] );
+&#x9;&#x9;heapify( A, i, 0 );
+&#x9;}
+}
+
+int main()
+{
+&#x9;while(1)
+&#x9;{
+&#x9;&#x9;printf( &#x22Unesi duzinu niza:\n&#x22 );
+&#x9;&#x9;int n;
+&#x9;&#x9;scanf( &#x22%d&#x22, &#x26;n );
+
+&#x9;&#x9;int A[MAX];
+&#x9;&#x9;printf( &#x22Unesi niz:\n&#x22 );
+&#x9;&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;scanf( &#x22%d&#x22, &#x26;A[i] );
+&#x9;&#x9;}
+
+&#x9;&#x9;sort( A, n );
+
+&#x9;&#x9;printf( &#x22Soritrani niz:\n&#x22 );
+&#x9;&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;printf( &#x22%d &#x22, A[i] );
+&#x9;&#x9;}
+
+&#x9;&#x9;printf( &#x22\n&#x22 );
+&#x9;}
+}
+</pre></code>
+<h3>selection</h3>
+<pre><code>
+#include&#x3C;stdio.h&#x3E;
+#define MAX 10
+void sort( int a[], int n )
+{
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;int max = a[i], i_max = i;
+&#x9;&#x9;for( int j = i + 1; j &#x3C; n; j ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;if( a[j] &#x3E; max )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;max = a[j];
+&#x9;&#x9;&#x9;&#x9;i_max = j;
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;}
+&#x9;&#x9;a[i_max] = a[i];
+&#x9;&#x9;a[i] = max;
+&#x9;}
+}
+
+int main()
+{
+&#x9;int a[MAX], n;
+&#x9;scanf( &#x22%d&#x22, &#x26;n );
+
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;scanf( &#x22%d&#x22, &#x26;a[i] );
+&#x9;}
+
+&#x9;sort( a, n );
+
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;printf( &#x22%d &#x22, a[i] );
+&#x9;}
+}
+</pre></code>
+<h3>insertion</h3>
+<pre><code>
+#include&#x3C;stdio.h&#x3E;
+#define MAX 10
+
+void sort( int a[], int n )
+{
+&#x9;for( int i = 1; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;int key = a[i];
+&#x9;&#x9;int j = i - 1;
+&#x9;&#x9;while( j &#x3E;= 0 &#x26;&#x26; a[j] &#x3E; key )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;a[j + 1] = a[j];
+&#x9;&#x9;&#x9;j --;
+&#x9;&#x9;}
+&#x9;&#x9;a[j + 1] = key;
+&#x9;}
+}
+
+int main()
+{
+&#x9;int a[ MAX ];
+&#x9;int n;
+&#x9;scanf( &#x22%d&#x22, &#x26;n );
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;scanf( &#x22%d&#x22, &#x26;a[i] );
+&#x9;}
+
+&#x9;sort( a, n );
+
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;printf( &#x22%d &#x22, a[i] );
+&#x9;}
+}
+</pre></code>
+<h3>merge</h3>
+<pre><code>
+#include&#x3C;stdio.h&#x3E;
+#include&#x3C;limits.h&#x3E;
+#define MAX 10
+
+void _merge( int a[], int start, int mid, int end )
+{
+&#x9;int A[MAX], B[MAX];
+&#x9;int n_a = mid - start + 1;
+&#x9;int n_b = end - mid;
+
+&#x9;for( int i = 0; i &#x3C; n_a; i ++ )
+&#x9;{
+&#x9;&#x9;A[i] = a[start + i];
+&#x9;}
+&#x9;for( int i = 0; i &#x3C; n_b; i ++ )
+&#x9;{
+&#x9;&#x9;B[i] = a[mid + 1 + i];
+&#x9;}
+
+&#x9;int i_a = 0, i_b = 0;
+&#x9;int is_a_empty = 0;
+&#x9;int is_b_empty = 0;
+&#x9;for( int i = start; i &#x3C;= end; i ++ )
+&#x9;{
+
+&#x9;&#x9;if( is_a_empty )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;a[i] = B[i_b];
+&#x9;&#x9;&#x9;i_b ++;
+&#x9;&#x9;}
+&#x9;&#x9;else if( is_b_empty )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;a[i] = A[i_a];
+&#x9;&#x9;&#x9;i_a ++;
+&#x9;&#x9;}
+&#x9;&#x9;else
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;if( A[i_b] &#x3E;= B[i_b] )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;a[i] = A[i_a];
+&#x9;&#x9;&#x9;&#x9;i_a ++;
+&#x9;&#x9;&#x9;&#x9;is_a_empty = i_a == n_a;
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;else
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;a[i] = B[i_b];
+&#x9;&#x9;&#x9;&#x9;i_b ++;
+&#x9;&#x9;&#x9;&#x9;is_b_empty = i_b == n_b;
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;}
+&#x9;}
+}
+
+void merge( int a[], int start, int mid, int end )
+{
+
+&#x9;int A[MAX], B[MAX];
+&#x9;int n1 = mid - start + 1;
+&#x9;int n2 = end - mid;
+
+&#x9;for( int i = 0; i &#x3C; n1; i ++ )
+&#x9;{
+&#x9;&#x9;A[i] = a[start + i];
+&#x9;}
+&#x9;for( int i = 0; i &#x3C; n2; i ++ )
+&#x9;{
+&#x9;&#x9;B[i] = a[mid + 1 + i];
+&#x9;}
+
+&#x9;A[n1] = INT_MIN;
+&#x9;B[n2] = INT_MIN;
+
+&#x9;n1 = 0; n2 = 0;
+&#x9;for( int i = start; i &#x3C;= end; i ++ )
+&#x9;{
+&#x9;&#x9;if( A[n1] &#x3E;= B[n2] )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;a[i] = A[n1];
+&#x9;&#x9;&#x9;n1 ++;
+&#x9;&#x9;}
+&#x9;&#x9;else
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;a[i] = B[n2];
+&#x9;&#x9;&#x9;n2 ++;
+&#x9;&#x9;}
+&#x9;}
+}
+
+void sort( int a[], int start, int end )
+{
+&#x9;if( end &#x3E; start )
+&#x9;{
+&#x9;&#x9;int mid = start + (end - start) / 2;
+&#x9;&#x9;sort( a, start, mid );
+&#x9;&#x9;sort( a, mid + 1, end );
+&#x9;&#x9;_merge(a, start, mid, end );
+&#x9;}
+}
+
+int main()
+{
+&#x9;int n, a[MAX];
+&#x9;scanf( &#x22%d&#x22, &#x26;n );
+
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;scanf( &#x22%d&#x22, &#x26;a[i] );
+&#x9;}
+
+&#x9;sort( a, 0, n - 1 );
+
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;printf( &#x22%d &#x22, a[i] );
+&#x9;}
+}
+</pre></code>
+<h3>html encode</h3>
+<pre><code>
+#include&#x3C;stdio.h&#x3E;
+#include&#x3C;string.h&#x3E;
+#define MAX_LEN 100
+
+int main( int file_count, char** file_names)
+{
+&#x9;for( int i = 0; i &#x3C; file_count; i ++ )
+&#x9;{
+&#x9;&#x9;FILE *code, *encoded;
+&#x9;&#x9;char c;
+
+&#x9;&#x9;int name_len = strlen( file_names[ i ] );
+&#x9;&#x9;if( file_names[ i ][ name_len - 2 ] == &#x27;.&#x27; &#x26;&#x26; file_names[ i ][ name_len - 1 ] == &#x27;c&#x27; )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;code = fopen( file_names[ i ], &#x22r&#x22 );
+
+&#x9;&#x9;&#x9;char output_fname[ MAX_LEN ];
+&#x9;&#x9;&#x9;output_fname[ 0 ] = &#x27;\0&#x27;;
+
+&#x9;&#x9;&#x9;strcat( output_fname, file_names[ i ] );
+&#x9;&#x9;&#x9;output_fname[ name_len - 2 ] = &#x27;\0&#x27;;
+&#x9;&#x9;&#x9;strcat( output_fname, &#x22.html_encoded&#x22 );
+
+&#x9;&#x9;&#x9;encoded = fopen( output_fname, &#x22w&#x22 );
+
+&#x9;&#x9;&#x9;while( ( c = getc( code ) ) != EOF )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;switch( c )
+&#x9;&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;&#x9;case &#x27;&#x3C;&#x27;:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x3C;&#x22, encoded );
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;&#x9;&#x9;case &#x27;&#x3E;&#x27;:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x3E;&#x22, encoded );
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;&#x9;&#x9;case &#x27;&#x22&#x27;:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x22&#x22, encoded );
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;&#x9;&#x9;case &#x27;\&#x27;&#x27;:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x27;&#x22, encoded );
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;&#x9;&#x9;case &#x27;&#x26;&#x27;:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x26;&#x22, encoded );
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;&#x9;&#x9;case &#x27;\t&#x27;:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x9;&#x22, encoded );
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;&#x9;&#x9;default:
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;putc( c, encoded );
+&#x9;&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;}
+&#x9;}
+}
+</pre></code>
+<h2>../uml_solver</h2>
+<h3>solver</h3>
+<pre><code>
+#include &#x3C;iostream&#x3E;
+#include &#x3C;string&#x3E;
+#include &#x22stack.cpp&#x22
+#include &#x22queue.cpp&#x22
+using namespace std;
+
+int is_operand( char c )
+{
+&#x9;if( c == &#x27;&#x26;&#x27; || c == &#x27;|&#x27; || c == &#x27;^&#x27; 
+&#x9;|| c == &#x27;&#x3E;&#x27; || c == &#x27;=&#x27; || c == &#x27;!&#x27; 
+&#x9;|| c == &#x27;(&#x27; || c == &#x27;)&#x27; )
+&#x9;{
+&#x9;&#x9;return 1;
+&#x9;}
+&#x9;return 0;
+}
+
+int op_prior( char c )
+{
+&#x9;switch( c )
+&#x9;{
+&#x9;&#x9;case &#x27;!&#x27;:
+&#x9;&#x9;&#x9;return 1;
+&#x9;&#x9;case &#x27;&#x26;&#x27;:
+&#x9;&#x9;case &#x27;|&#x27;:
+&#x9;&#x9;&#x9;return 1;
+&#x9;&#x9;case &#x27;&#x3E;&#x27;:
+&#x9;&#x9;case &#x27;=&#x27;:
+&#x9;&#x9;&#x9;return 2;
+&#x9;&#x9;case &#x27;(&#x27;:
+&#x9;&#x9;&#x9;return 3;
+&#x9;}
+&#x9;return 0; //nikad
+}
+
+int is_var( char e )
+{
+&#x9;if( e &#x3E;= &#x27;a&#x27; &#x26;&#x26; e &#x3C;= &#x27;z&#x27; )
+&#x9;{
+&#x9;&#x9;return 1;
+&#x9;}
+
+&#x9;return 0;
+}
+
+string to_postfix( string exp )
+{
+&#x9;Stack&#x3C; char &#x3E; operand;
+&#x9;Queue&#x3C; char &#x3E; token;
+&#x9;
+&#x9;for( int i = 0; i &#x3C; exp.length(); i ++ )
+&#x9;{
+&#x9;&#x9;switch( exp[ i ] )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;case &#x27;!&#x27;:
+&#x9;&#x9;&#x9;case &#x27;(&#x27;:
+&#x9;&#x9;&#x9;&#x9;operand.push( exp[ i ] );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;)&#x27;:
+&#x9;&#x9;&#x9;&#x9;while( operand.peek() != &#x27;(&#x27; )
+&#x9;&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;&#x9;token.push( operand.pop() );
+&#x9;&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;&#x9;operand.pop();
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;&#x26;&#x27;:
+&#x9;&#x9;&#x9;case &#x27;|&#x27;:
+&#x9;&#x9;&#x9;case &#x27;^&#x27;:
+&#x9;&#x9;&#x9;case &#x27;=&#x27;:
+&#x9;&#x9;&#x9;case &#x27;&#x3E;&#x27;:
+&#x9;&#x9;&#x9;&#x9;while( ! operand.is_empty() &#x26;&#x26;
+&#x9;&#x9;&#x9;&#x9;op_prior( operand.peek() ) &#x3C;= op_prior( exp[ i ] ) )
+&#x9;&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;&#x9;token.push( operand.pop() );
+&#x9;&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;&#x9;operand.push( exp[ i ] );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;default:
+&#x9;&#x9;&#x9;&#x9;token.push( exp[ i ] );
+&#x9;&#x9;}
+
+&#x9;}
+
+&#x9;while( ! operand.is_empty() )
+&#x9;{
+&#x9;&#x9;token.push( operand.pop() );
+&#x9;}
+
+&#x9;return token.to_string();
+}
+
+int get_val( int val, char var )
+{
+&#x9;return ( val &#x3E;&#x3E; ( var - &#x27;a&#x27; ) ) &#x26; 1;
+}
+
+
+int eval( char op, int val1, int val2 = 0 )
+{
+&#x9;switch( op )
+&#x9;{
+&#x9;&#x9;case &#x27;!&#x27;:
+&#x9;&#x9;&#x9;return !val1;
+&#x9;&#x9;case &#x27;&#x26;&#x27;:
+&#x9;&#x9;&#x9;return val1 &#x26; val2;
+&#x9;&#x9;case &#x27;|&#x27;:
+&#x9;&#x9;&#x9;return val1 | val2;
+&#x9;&#x9;case &#x27;=&#x27;:
+&#x9;&#x9;&#x9;return val1 == val2;
+&#x9;&#x9;case &#x27;^&#x27;:
+&#x9;&#x9;&#x9;return val1 ^ val2;
+&#x9;&#x9;case &#x27;&#x3E;&#x27;:
+&#x9;&#x9;&#x9;if( val1 == 1 &#x26;&#x26; val2 == 0 )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;return 0;
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;return 1;
+&#x9;}
+&#x9;return 0;//nikad
+}
+
+int eval_postfix( int val, string exp )
+{
+&#x9;Stack&#x3C; int &#x3E; result;
+&#x9;
+&#x9;for( int i = 0; i &#x3C; exp.length(); i ++ )
+&#x9;{
+&#x9;&#x9;if( is_var( exp[ i ] ) )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;result.push( get_val( val, exp[ i ] ) );
+&#x9;&#x9;}
+&#x9;&#x9;else
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;int val1 = result.pop(), res;
+&#x9;&#x9;&#x9;
+&#x9;&#x9;&#x9;if( exp[ i ] == &#x27;!&#x27; )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;res = eval( exp[ i ], val1 );
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;else
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;int val2 = result.pop();
+&#x9;&#x9;&#x9;&#x9;res = eval( exp[ i ], val2, val1 );
+&#x9;&#x9;&#x9;}
+
+&#x9;&#x9;&#x9;result.push( res );
+&#x9;&#x9;}
+&#x9;}
+
+&#x9;return result.peek();
+}
+
+void print_solution( int n, int val, int sol )
+{
+&#x9;cout &#x3C;&#x3C; &#x22(&#x22 &#x3C;&#x3C; sol &#x3C;&#x3C; &#x22) (&#x22;
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;char var = &#x27;a&#x27; + i;
+&#x9;&#x9;cout &#x3C;&#x3C; var;
+
+&#x9;&#x9;if( i == n - 1 )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;cout &#x3C;&#x3C; &#x22) = (&#x22;
+&#x9;&#x9;}
+&#x9;&#x9;else
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;cout &#x3C;&#x3C; &#x22, &#x22;
+&#x9;&#x9;}
+&#x9;}
+&#x9;for( int i = 0; i &#x3C; n; i ++ )
+&#x9;{
+&#x9;&#x9;cout &#x3C;&#x3C; ( ( val &#x3E;&#x3E; i ) &#x26; 1 );
+
+&#x9;&#x9;if( i == n - 1 )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;cout &#x3C;&#x3C; &#x27;)&#x27; &#x3C;&#x3C; endl;
+&#x9;&#x9;}
+&#x9;&#x9;else
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;cout &#x3C;&#x3C; &#x22, &#x22;
+&#x9;&#x9;}
+&#x9;}
+}
+
+void solve()
+{
+&#x9;string exp;
+&#x9;int n, m;
+&#x9;cout &#x3C;&#x3C; &#x22Broj promenljivih -&#x3E; &#x22;
+&#x9;cin &#x3E;&#x3E; n;
+&#x9;cout &#x3C;&#x3C; &#x22Broj jednacina -&#x3E; &#x22;
+&#x9;cin &#x3E;&#x3E; m;
+
+&#x9;string eq[ MAX ];
+&#x9;for( int i = 0; i &#x3C; m; i ++ )
+&#x9;{
+&#x9;&#x9;string infix;
+&#x9;&#x9;cout &#x3C;&#x3C; &#x22( &#x22 &#x3C;&#x3C; i + 1 &#x3C;&#x3C; &#x22 ) -&#x3E; &#x22;
+
+&#x9;&#x9;cin &#x3E;&#x3E; infix;
+&#x9;&#x9;eq[ i ] = to_postfix( infix );
+
+&#x9;}
+
+&#x9;//0 --- 2^n - 1
+&#x9;int limit = 1 &#x3C;&#x3C; n, sol = 0;
+&#x9;for( int i = 0; i &#x3C; limit; i ++ )
+&#x9;{
+&#x9;&#x9;int all_true = 1;
+&#x9;&#x9;for( int j = 0; j &#x3C; m; j ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;all_true &#x26;= eval_postfix( i, eq[ j ] );
+&#x9;&#x9;}
+
+&#x9;&#x9;if( all_true )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;sol ++;
+&#x9;&#x9;&#x9;print_solution( n, i, sol );
+&#x9;&#x9;}
+&#x9;}
+}
+
+int main()
+{
+&#x9;while( 1 )
+&#x9;{
+&#x9;&#x9;solve();
+&#x9;}
+}
+</pre></code>
+<h3>stack</h3>
+<pre><code>
+#include &#x3C;iostream&#x3E;
+#define MAX 1000
+using namespace std;
+
+template &#x3C; class T &#x3E;
+class Stack
+{
+&#x9;int top;
+
+&#x9;public:
+&#x9;T a[ MAX ];
+
+&#x9;Stack()
+&#x9;{
+&#x9;&#x9;top = -1;
+&#x9;}
+
+&#x9;void push( T x );
+&#x9;T pop();
+&#x9;T peek();
+&#x9;bool is_empty();
+};
+
+template &#x3C; class T &#x3E;
+void Stack &#x3C; T &#x3E; ::push( T x )
+{
+&#x9;a[ ++ top ] = x;
+}
+
+template &#x3C; class T &#x3E;
+T Stack &#x3C; T &#x3E; ::pop()
+{
+&#x9;if( top == - 1 )
+&#x9;{
+&#x9;&#x9;cout &#x3C;&#x3C; &#x22trying to pop empty stack&#x22 &#x3C;&#x3C; endl;
+&#x9;&#x9;return T ( 0 );
+&#x9;}
+&#x9;return a[ top -- ];
+}
+
+template &#x3C; class T &#x3E;
+T Stack &#x3C; T &#x3E;::peek()
+{
+&#x9;return a[ top ];
+}
+
+template &#x3C; class T &#x3E;
+bool Stack &#x3C; T &#x3E; ::is_empty()
+{
+&#x9;return ( top == - 1 );
+}
+</pre></code>
+<h3>string reverse</h3>
+<pre><code>
+#include &#x3C;iostream&#x3E;
+#include &#x3C;string&#x3E;
+#include &#x3C;string.h&#x3E;
+#include &#x22stack.cpp&#x22
+using namespace std;
+
+void reverse_string( string* p )
+{
+&#x9;Stack &#x3C; char &#x3E; S;
+&#x9;for( int i = 0; i &#x3C; (*p).length(); i ++ )
+&#x9;{
+&#x9;&#x9;S.push( (*p)[ i ] );
+&#x9;}
+
+&#x9;for( int i = 0; i &#x3C; (*p).length(); i ++ )
+&#x9;{
+&#x9;&#x9;(*p)[ i ] = S.pop();
+&#x9;}
+}
+
+int main()
+{
+&#x9;string m = &#x22miloje&#x22;
+&#x9;cout &#x3C;&#x3C; &#x22-&#x3E;&#x22 &#x3C;&#x3C; m &#x3C;&#x3C; endl;
+&#x9;reverse_string( &#x26;m );
+&#x9;cout &#x3C;&#x3C; &#x22-&#x3E;&#x22 &#x3C;&#x3C; m &#x3C;&#x3C; endl;
+}
+</pre></code>
+<h3>queue</h3>
+<pre><code>
+#include &#x3C;iostream&#x3E;
+#include &#x3C;string&#x3E;
+#include &#x22linked_list.cpp&#x22
+
+template &#x3C; class T &#x3E;
+class Queue
+{
+&#x9;Linked_list &#x3C; T &#x3E; data;
+&#x9;
+&#x9;public:
+
+&#x9;void push( T val );
+&#x9;T pop();
+&#x9;bool is_empty();
+&#x9;string to_string();
+};
+
+template &#x3C; class T &#x3E;
+void Queue &#x3C; T &#x3E; ::push( T val )
+{
+&#x9;data.add_end( val );
+}
+
+template &#x3C; class T &#x3E;
+T Queue &#x3C; T &#x3E;::pop()
+{
+&#x9;return data.rem_beg();
+}
+
+template &#x3C; class T &#x3E;
+bool Queue &#x3C; T &#x3E; ::is_empty()
+{
+&#x9;return ( data.head == NULL );
+}
+
+template &#x3C; class T &#x3E;
+string Queue &#x3C; T &#x3E; ::to_string()
+{
+&#x9;string out = &#x22&#x22;
+
+&#x9;Node&#x3C; T &#x3E; *next;
+&#x9;next = data.head;
+
+&#x9;do
+&#x9;{
+&#x9;&#x9;T val = next -&#x3E; data;
+&#x9;&#x9;out = out +  val;
+&#x9;&#x9;next = next -&#x3E; next;
+&#x9;}
+&#x9;while( next != NULL );
+
+&#x9;return out;
+}
+</pre></code>
+<h3>linked list</h3>
+<pre><code>
+#include &#x3C;iostream&#x3E;
+using namespace std;
+
+template &#x3C; typename T &#x3E;
+struct Node
+{
+&#x9;T data;
+&#x9;Node &#x3C; T &#x3E; *next;
+};
+
+template &#x3C; class T &#x3E;
+class Linked_list
+{
+&#x9;public:
+&#x9;Node &#x3C; T &#x3E; *head, *tail;
+
+&#x9;Linked_list()
+&#x9;{
+&#x9;&#x9;head = NULL;
+&#x9;&#x9;tail = NULL;
+&#x9;}
+
+&#x9;void add_end( T val );
+&#x9;void add_beg( T val );
+&#x9;T rem_beg();
+};
+
+template &#x3C; class T &#x3E;
+void Linked_list &#x3C; T &#x3E; ::add_end( T val )
+{
+&#x9;Node &#x3C; T &#x3E; *n;
+&#x9;n = new Node&#x3C; T &#x3E;;
+&#x9;n -&#x3E; data = val;
+
+&#x9;if( head == NULL )
+&#x9;{
+&#x9;&#x9;head = n;
+&#x9;}
+
+&#x9;if( tail != NULL )
+&#x9;{
+&#x9;&#x9;tail -&#x3E; next = n;
+&#x9;}
+
+&#x9;n -&#x3E; next = NULL;
+&#x9;tail = n;
+}
+
+template &#x3C; class T &#x3E;
+void Linked_list &#x3C; T &#x3E; ::add_beg( T val )
+{
+&#x9;Node &#x3C; T &#x3E; *n;
+&#x9;n = new Node&#x3C; T &#x3E;;
+&#x9;n -&#x3E; data = val;
+&#x9;n -&#x3E; next = head;
+
+&#x9;head = n;
+}
+
+template &#x3C; class T &#x3E;
+T Linked_list &#x3C; T &#x3E; ::rem_beg()
+{
+&#x9;T val = head.data;
+&#x9;head = head -&#x3E; next;
+&#x9;return val;
+}
+
+</pre></code>
+<h2>../graph_algorithams</h2>
+<h3>dfs</h3>
+<pre><code>
+#include &#x3C;stdio.h&#x3E;
+#include &#x3C;string.h&#x3E;
+#define NN 1024
+#define CLR( x ) memset( x, 0, sizeof( x ) )
+
+int adj[ NN ][ NN ], deg[ NN ], visited[ NN ];
+
+void dfs( int current )
+{
+&#x9;if( visited[ current ] )
+&#x9;{
+&#x9;&#x9;return;
+&#x9;}
+
+&#x9;visited[ current ] = 1;
+&#x9;for( int i = 0; i &#x3C; deg[ current ]; i ++ )
+&#x9;{
+&#x9;&#x9;dfs( adj[ current ][ i ] );
+&#x9;}
+}
+
+int main()
+{
+&#x9;int V, E;
+
+&#x9;printf( &#x22input number of vertecies -&#x3E; &#x22 );
+&#x9;scanf( &#x22%d&#x22, &#x26;V);
+
+&#x9;printf( &#x22input number of edges -&#x3E; &#x22 );
+&#x9;scanf( &#x22%d&#x22, &#x26;E);
+
+&#x9;CLR( deg ); CLR( adj ); CLR( visited );
+
+&#x9;for( int i = 0; i &#x3C; E; i ++ )
+&#x9;{
+&#x9;&#x9;int u, v;
+&#x9;&#x9;printf( &#x22input edge -&#x3E; &#x22 );
+&#x9;&#x9;scanf( &#x22%d%d&#x22, &#x26;u, &#x26;v );
+
+&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
+&#x9;&#x9;adj[ v ][ deg[ v ] ++ ] = u;
+&#x9;}
+
+&#x9;int start;
+
+&#x9;printf( &#x22input start node -&#x3E; &#x22 );
+&#x9;scanf( &#x22%d&#x22, &#x26;start );
+
+&#x9;dfs( start );
+
+&#x9;printf( &#x22|%15s|%15s|\n&#x22, &#x22vertex&#x22, &#x22visited&#x22 );
+&#x9;for( int i = 0; i &#x3C; V; i ++ )
+&#x9;{
+&#x9;&#x9;printf( &#x22|%15d|%15d|\n&#x22, i, visited[ i ] );
+&#x9;}
+}
+</pre></code>
+<h3>bfs</h3>
+<pre><code>
+#include &#x3C;stdio.h&#x3E;
+#include &#x3C;string.h&#x3E;
+#define CLR( x, v ) memset( x, v, sizeof( x ) )
+#define NN 1024
+
+int adj[ NN ][ NN ], deg[ NN ], pred[ NN ], queue[ NN ], in_queue[ NN ], path[ NN ];
+
+void solve( int start )
+{
+&#x9;CLR( in_queue, 0 ); CLR( queue, -1 ); CLR( pred, -1 );
+
+&#x9;queue[ 0 ] = start;
+&#x9;in_queue[ start ] = 1;
+
+&#x9;int at = 0, top = 1, current;
+
+&#x9;while( ( current = queue[ at ] ) != -1 )
+&#x9;{
+&#x9;&#x9;for( int j = 0; j &#x3C; deg[ current ]; j ++ )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;int neighbour = adj[ current ][ j ];
+&#x9;&#x9;&#x9;if( !in_queue[ neighbour ] )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;pred[ neighbour ] = current;
+&#x9;&#x9;&#x9;&#x9;queue[ top ] = neighbour;
+&#x9;&#x9;&#x9;&#x9;in_queue[ neighbour ] = 1;
+&#x9;&#x9;&#x9;&#x9;top ++;
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;}
+&#x9;&#x9;at ++;
+&#x9;}
+}
+
+void reconstruct_path( int start, int end )
+{
+&#x9;if( pred[ end ] == -1 )
+&#x9;{
+&#x9;&#x9;printf( &#x22No path from %d to %d.\n&#x22, start, end );
+&#x9;&#x9;return;
+&#x9;}
+
+&#x9;int len = 0;
+&#x9;int next;
+&#x9;path[ len ] = end;
+
+&#x9;do
+&#x9;{
+&#x9;&#x9;next = pred[ path[ len ++ ] ];
+&#x9;&#x9;path[ len ] = next;
+&#x9;}
+&#x9;while( next != start );
+
+&#x9;printf( &#x22Path form %d to %d === &#x22, start, end );
+&#x9;printf( &#x22%d&#x22, start );
+&#x9;for( int i = len - 1; i &#x3E;= 0; i -- )
+&#x9;{
+&#x9;&#x9;printf( &#x22 -&#x3E; %d&#x22, path[ i ] );
+&#x9;}
+&#x9;printf( &#x22\n&#x22 );
+}
+
+void bfs( int start , int end)
+{
+&#x9;solve( start );
+&#x9;reconstruct_path( start, end );
+}
+
+int main()
+{
+&#x9;int V, E;
+&#x9;printf( &#x22Input number of vertices and edges -&#x3E; &#x22 );
+&#x9;scanf( &#x22%d%d&#x22, &#x26;V, &#x26;E );
+
+&#x9;for( int i = 0; i &#x3C; E; i ++ )
+&#x9;{
+&#x9;&#x9;int u, v;
+
+&#x9;&#x9;printf( &#x22Input an edge -&#x3E; &#x22 );
+&#x9;&#x9;scanf( &#x22%d%d&#x22, &#x26;u, &#x26;v );
+
+&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
+&#x9;&#x9;adj[ v ][ deg[ v ] ++ ] = u;
+&#x9;}
+
+&#x9;int start, end;
+&#x9;printf( &#x22Input start and end -&#x3E; &#x22 );
+&#x9;scanf( &#x22%d%d&#x22, &#x26;start, &#x26;end );
+
+&#x9;bfs( start, end );
+}
+</pre></code>
+<h3>dijkstras</h3>
+<pre><code>
 #include &#x3C;stdio.h&#x3E;
 #include &#x3C;string.h&#x3E;
 #include &#x3C;limits.h&#x3E;
@@ -76,188 +1003,338 @@ int dijkstras( int n, int s, int f )
 int main()
 {
 &#x9;int V, E;
-&#x9;while( scanf( &#x22;%d%d&#x22;, &#x26;V, &#x26;E ) == 2 )
+&#x9;while( scanf( &#x22%d%d&#x22, &#x26;V, &#x26;E ) == 2 )
 &#x9;{
 &#x9;&#x9;CLR( deg, 0 );
 &#x9;&#x9;CLR( adj, -1 );
 
-&#x9;&#x9;printf( &#x22;insert edges -&#x3E;\n&#x22; );
+&#x9;&#x9;printf( &#x22insert edges -&#x3E;\n&#x22 );
 &#x9;&#x9;for( int i = 0; i &#x3C; E; i ++ )
 &#x9;&#x9;{
 &#x9;&#x9;&#x9;int u, v, w;
-&#x9;&#x9;&#x9;scanf( &#x22;%d%d%d&#x22;, &#x26;u, &#x26;v, &#x26;w );
+&#x9;&#x9;&#x9;scanf( &#x22%d%d%d&#x22, &#x26;u, &#x26;v, &#x26;w );
 
 &#x9;&#x9;&#x9;graph[ u ][ v ] = w;
 &#x9;&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
 &#x9;&#x9;}
 
 &#x9;&#x9;int s, f;
-&#x9;&#x9;printf( &#x22;insert start &#x26; finish -&#x3E;\n&#x22; );
-&#x9;&#x9;scanf( &#x22;%d%d&#x22;, &#x26;s, &#x26;f );
+&#x9;&#x9;printf( &#x22insert start &#x26; finish -&#x3E;\n&#x22 );
+&#x9;&#x9;scanf( &#x22%d%d&#x22, &#x26;s, &#x26;f );
 
-&#x9;&#x9;printf( &#x22;delta( %d, %d ) -&#x3E; %d\n&#x22;, s, f, dijkstras( V, s, f ) );
-&#x9;&#x9;printf( &#x22;|%15s|%15s|%15s|\n&#x22;, &#x22;vertex&#x22;, &#x22;predecesor&#x22;, &#x22;delta&#x22; );
+&#x9;&#x9;printf( &#x22delta( %d, %d ) -&#x3E; %d\n&#x22, s, f, dijkstras( V, s, f ) );
+&#x9;&#x9;printf( &#x22|%15s|%15s|%15s|\n&#x22, &#x22vertex&#x22, &#x22predecesor&#x22, &#x22delta&#x22 );
 &#x9;&#x9;for( int i = 0; i &#x3C; V; i ++ )
 &#x9;&#x9;{
-&#x9;&#x9;&#x9;printf( &#x22;|%15d|%15d|%15d|\n&#x22;, i, pre[ i ], dist[ i ] );
+&#x9;&#x9;&#x9;printf( &#x22|%15d|%15d|%15d|\n&#x22, i, pre[ i ], dist[ i ] );
 &#x9;&#x9;}
 &#x9;}
 }
-			</code></pre>
+</pre></code>
+<h2>../utils</h2>
+<h3>print to index</h3>
+<pre><code>
+#include &#x3C;stdio.h&#x3E;
 
-			<h2>Bredth first search</h2>
-			<pre><code>
+void add_header( FILE *index )
+{
+&#x9;FILE *header;
+&#x9;header = fopen( &#x22index_header&#x22, &#x22r&#x22 );
+
+&#x9;char c;
+&#x9;while( ( c = getc( header ) ) != EOF )
+&#x9;{
+&#x9;&#x9;putc( c, index );
+&#x9;}
+}
+
+void add_footer( FILE *index )
+{
+&#x9;FILE *footer;
+&#x9;footer = fopen( &#x22index_footer&#x22, &#x22r&#x22 );
+
+&#x9;char c;
+&#x9;while( ( c = getc( footer ) ) != EOF )
+&#x9;{
+&#x9;&#x9;putc( c, index );
+&#x9;}
+}
+
+</pre></code>
+<h3>html encode</h3>
+<pre><code>
+#include&#x3C;stdio.h&#x3E;
+#include&#x3C;string.h&#x3E;
+//encode a file, and outputs into index.html
+void html_encode( FILE *code, FILE *index )
+{
+&#x9;fputs( &#x22&#x3C;pre&#x3E;&#x3C;code&#x3E;\n&#x22, index );
+
+&#x9;char c;
+&#x9;while( ( c = getc( code ) ) != EOF )
+&#x9;{
+&#x9;&#x9;switch( c )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;case &#x27;&#x3C;&#x27;:
+&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x3C;&#x22, index );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;&#x3E;&#x27;:
+&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x3E;&#x22, index );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;&#x22&#x27;:
+&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x22&#x22, index );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;\&#x27;&#x27;:
+&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x27;&#x22, index );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;&#x26;&#x27;:
+&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x26;&#x22, index );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;case &#x27;\t&#x27;:
+&#x9;&#x9;&#x9;&#x9;fputs( &#x22&#x26;#x9;&#x22, index );
+&#x9;&#x9;&#x9;&#x9;break;
+&#x9;&#x9;&#x9;default:
+&#x9;&#x9;&#x9;&#x9;putc( c, index );
+&#x9;&#x9;}
+&#x9;}
+
+&#x9;fputs( &#x22&#x3C;/pre&#x3E;&#x3C;/code&#x3E;\n&#x22, index );
+}
+</pre></code>
+<h3> opendir</h3>
+<pre><code>
+#include &#x3C;stdio.h&#x3E; 
+#include &#x3C;dirent.h&#x3E; 
+#include &#x3C;sys/stat.h&#x3E;
+
+int main() {
+&#x9;DIR *dir;
+&#x9;struct dirent *entry;
+&#x9;struct stat entrystat;
+
+&#x9;dir = opendir( &#x22.&#x22 );
+
+&#x9;if( dir )
+&#x9;{
+&#x9;&#x9;printf( &#x22Directory open:\n&#x22 );
+
+&#x9;&#x9;int entry_num = 1;
+&#x9;&#x9;while( ( entry = readdir( dir ) ) != NULL)
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;stat( entry -&#x3E; d_name, &#x26;entrystat );
+
+&#x9;&#x9;&#x9;printf( &#x22Entry %d -&#x3E; &#x22, entry_num );
+&#x9;&#x9;&#x9;if( S_ISDIR( entrystat.st_mode ) )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;printf( &#x22Directory: &#x22 );
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;else
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;printf( &#x22File: &#x22 );
+&#x9;&#x9;&#x9;}
+
+&#x9;&#x9;&#x9;printf(&#x22%s\n&#x22, entry -&#x3E; d_name);
+
+&#x9;&#x9;&#x9;entry_num ++;
+&#x9;&#x9;}
+
+&#x9;closedir( dir );
+&#x9;}
+}
+</pre></code>
+<h3>encode dir</h3>
+<pre><code>
+#include &#x3C;string.h&#x3E;
+#include &#x3C;dirent.h&#x3E;
+#include &#x22html_encode.h&#x22
+#include &#x22add_title.h&#x22
+
+#define MAX 100
+
+int is_c_file( char file_name[] )
+{
+&#x9;int len = strlen( file_name );
+&#x9;if( file_name[ len - 2 ] == &#x27;.&#x27; &#x26;&#x26; 
+&#x9;&#x9;( file_name[ len - 1 ] == &#x27;c&#x27; || file_name[ len - 1 ] == &#x27;h&#x27; ) )
+&#x9;{
+&#x9;&#x9;return 1;
+&#x9;}
+
+&#x9;if( file_name[ len - 3 ] == &#x27;c&#x27; &#x26;&#x26;
+&#x9;&#x9;file_name[ len - 2 ] == &#x27;p&#x27; &#x26;&#x26;
+&#x9;&#x9;file_name[ len - 1 ] == &#x27;p&#x27; ) 
+&#x9;{
+&#x9;&#x9;return 1;
+&#x9;}
+
+&#x9;return 0;
+}
+
+void encode_dir( char dir_name[], FILE *index )
+{
+&#x9;DIR *dir;
+&#x9;struct dirent *entry;
+
+&#x9;dir = opendir( dir_name );
+&#x9;add_title( dir_name, index );
+
+&#x9;if( dir == NULL )
+&#x9;{
+&#x9;&#x9;printf( &#x22dir not open -&#x3E; %s\n&#x22, dir_name );
+&#x9;}
+&#x9;else
+&#x9;{
+&#x9;&#x9;printf( &#x22dir opened -&#x3E; %s\n&#x22, dir_name );
+&#x9;}
+
+&#x9;while( ( entry = readdir( dir ) ) != NULL )
+&#x9;{
+&#x9;&#x9;if( is_c_file( entry -&#x3E; d_name ) )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;char file_name[ MAX ];
+&#x9;&#x9;&#x9;file_name[ 0 ] = &#x27;\0&#x27;;
+&#x9;&#x9;&#x9;strcat( file_name, dir_name );
+&#x9;&#x9;&#x9;strcat( file_name, &#x22/&#x22 );
+&#x9;&#x9;&#x9;strcat( file_name, entry -&#x3E; d_name );
+
+&#x9;&#x9;&#x9;FILE *code;
+&#x9;&#x9;&#x9;code = fopen( file_name, &#x22r&#x22 );
+&#x9;&#x9;&#x9;if( code == NULL )
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;printf( &#x22couldn&#x27;t open -&#x3E; %s\n&#x22, file_name );
+&#x9;&#x9;&#x9;}
+&#x9;&#x9;&#x9;else
+&#x9;&#x9;&#x9;{
+&#x9;&#x9;&#x9;&#x9;printf( &#x22file opened -&#x3E; %s\n&#x22, file_name );
+&#x9;&#x9;&#x9;}
+
+&#x9;&#x9;&#x9;add_subtitle( entry -&#x3E; d_name, index );
+&#x9;&#x9;&#x9;html_encode( code, index );
+
+&#x9;&#x9;&#x9;printf( &#x22encoded -&#x3E; %s\n&#x22, file_name );
+&#x9;&#x9;&#x9;fclose( code );
+&#x9;&#x9;}
+&#x9;}
+&#x9;closedir( dir );
+}
+</pre></code>
+<h3>add title</h3>
+<pre><code>
 #include &#x3C;stdio.h&#x3E;
 #include &#x3C;string.h&#x3E;
-#define CLR( x, v ) memset( x, v, sizeof( x ) )
-#define NN 1024
+#define MAX 100
 
-int adj[ NN ][ NN ], deg[ NN ], pred[ NN ], queue[ NN ], in_queue[ NN ], path[ NN ];
-
-void solve( int start )
+void prep( char title[], char preped[] )
 {
-&#x9;CLR( in_queue, 0 ); CLR( queue, -1 ); CLR( pred, -1 );
-
-&#x9;queue[ 0 ] = start;
-&#x9;in_queue[ start ] = 1;
-
-&#x9;int at = 0, top = 1, current;
-
-&#x9;while( ( current = queue[ at ] ) != -1 )
+&#x9;int len = strlen( title );
+&#x9;for( int i = 0; i &#x3C;= len; i ++ )
 &#x9;{
-&#x9;&#x9;for( int j = 0; j &#x3C; deg[ current ]; j ++ )
+&#x9;&#x9;if( title[ i ] == &#x27;_&#x27; )
 &#x9;&#x9;{
-&#x9;&#x9;&#x9;int neighbour = adj[ current ][ j ];
-&#x9;&#x9;&#x9;if( !in_queue[ neighbour ] )
+&#x9;&#x9;&#x9;preped[ i ] = &#x27; &#x27;;
+&#x9;&#x9;}
+&#x9;&#x9;else if( title[ i ] == &#x27;.&#x27; )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;preped[ i ] = &#x27;\0&#x27;;
+&#x9;&#x9;}
+&#x9;&#x9;else
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;preped[ i ] = title[ i ];
+&#x9;&#x9;}
+&#x9;}
+}
+
+void add_title( char title[], FILE *index )
+{
+//&#x9;printf( &#x22add_title | title -&#x3E; %s\n&#x22, title );
+&#x9;char preped[ MAX ];
+&#x9;prep( title, preped );
+//&#x9;printf( &#x22add_title | preped -&#x3E; %s\n&#x22, preped );
+&#x9;fputs( &#x22&#x3C;h2&#x3E;&#x22, index );
+&#x9;fputs( title, index );
+&#x9;fputs( &#x22&#x3C;/h2&#x3E;\n&#x22, index );
+}
+
+void add_subtitle( char title[], FILE *index )
+{
+&#x9;char preped[ MAX ];
+&#x9;prep( title, preped );
+&#x9;fputs( &#x22&#x3C;h3&#x3E;&#x22, index );
+&#x9;fputs( preped, index );
+&#x9;fputs( &#x22&#x3C;/h3&#x3E;\n&#x22, index );
+}
+</pre></code>
+<h3>update index</h3>
+<pre><code>
+#include &#x3C;stdio.h&#x3E;
+#include &#x22encode_dir.h&#x22
+#include &#x22sub_dirs.h&#x22
+#include &#x22print_to_index.h&#x22
+#define MAX 100
+
+int main()
+{
+&#x9;FILE *index;
+
+&#x9;index = fopen( &#x22../web_pres/index.html&#x22, &#x22w&#x22 );
+&#x9;if( index == NULL )
+&#x9;{
+&#x9;&#x9;printf( &#x22can&#x27;t open index&#x22 );
+&#x9;&#x9;return 0;
+&#x9;}
+
+&#x9;add_header( index );
+
+&#x9;int N;
+&#x9;char sub_names[ MAX ][ MAX ];
+&#x9;sub_dirs( sub_names, &#x26;N );
+
+&#x9;for( int i = 0; i &#x3C; N; i ++ )
+&#x9;{
+&#x9;&#x9;encode_dir( sub_names[ i ], index );
+&#x9;}
+
+&#x9;add_footer( index );
+}
+</pre></code>
+<h3>sub dirs</h3>
+<pre><code>
+#include &#x3C;stdio.h&#x3E; 
+#include &#x3C;string.h&#x3E;
+#include &#x3C;dirent.h&#x3E; 
+#include &#x3C;sys/stat.h&#x3E;
+#define MAX 100
+
+//fills array with subdirectory names
+void sub_dirs( char subdir_names[][ MAX ], int *num )
+{
+&#x9;DIR *dir;
+&#x9;struct dirent *entry;
+&#x9;struct stat entrystat;
+
+&#x9;dir = opendir( &#x22../&#x22 );
+
+&#x9;int dir_num = 0;
+&#x9;while( ( entry = readdir( dir ) ) != NULL)
+&#x9;{
+&#x9;&#x9;stat( entry -&#x3E; d_name, &#x26;entrystat );
+
+&#x9;&#x9;if( S_ISDIR( entrystat.st_mode ) )
+&#x9;&#x9;{
+&#x9;&#x9;&#x9;if( strcmp( entry -&#x3E; d_name, &#x22README.md&#x22 ) != 0 &#x26;&#x26;
+&#x9;&#x9;&#x9;entry -&#x3E; d_name[ 0 ] != &#x27;.&#x27; )
 &#x9;&#x9;&#x9;{
-&#x9;&#x9;&#x9;&#x9;pred[ neighbour ] = current;
-&#x9;&#x9;&#x9;&#x9;queue[ top ] = neighbour;
-&#x9;&#x9;&#x9;&#x9;in_queue[ neighbour ] = 1;
-&#x9;&#x9;&#x9;&#x9;top ++;
+&#x9;&#x9;&#x9;&#x9;printf( &#x22subdir added -&#x3E; %s\n&#x22, entry -&#x3E; d_name );
+&#x9;&#x9;&#x9;&#x9;strcat( subdir_names[ dir_num ], &#x22../&#x22 );
+&#x9;&#x9;&#x9;&#x9;strcat( subdir_names[ dir_num ], entry -&#x3E; d_name );
+&#x9;&#x9;&#x9;&#x9;dir_num ++;
 &#x9;&#x9;&#x9;}
 &#x9;&#x9;}
-&#x9;&#x9;at ++;
 &#x9;}
+&#x9;*num = dir_num;
+&#x9;closedir( dir );
 }
-
-void reconstruct_path( int start, int end )
-{
-&#x9;if( pred[ end ] == -1 )
-&#x9;{
-&#x9;&#x9;printf( &#x22;No path from %d to %d.\n&#x22;, start, end );
-&#x9;&#x9;return;
-&#x9;}
-
-&#x9;int len = 0;
-&#x9;int next;
-&#x9;path[ len ] = end;
-
-&#x9;do
-&#x9;{
-&#x9;&#x9;next = pred[ path[ len ++ ] ];
-&#x9;&#x9;path[ len ] = next;
-&#x9;}
-&#x9;while( next != start );
-
-&#x9;printf( &#x22;Path form %d to %d === &#x22;, start, end );
-&#x9;printf( &#x22;%d&#x22;, start );
-&#x9;for( int i = len - 1; i &#x3E;= 0; i -- )
-&#x9;{
-&#x9;&#x9;printf( &#x22; -&#x3E; %d&#x22;, path[ i ] );
-&#x9;}
-&#x9;printf( &#x22;\n&#x22; );
-}
-
-void bfs( int start , int end)
-{
-&#x9;solve( start );
-&#x9;reconstruct_path( start, end );
-}
-
-int main()
-{
-&#x9;int V, E;
-&#x9;printf( &#x22;Input number of vertices and edges -&#x3E; &#x22; );
-&#x9;scanf( &#x22;%d%d&#x22;, &#x26;V, &#x26;E );
-
-&#x9;for( int i = 0; i &#x3C; E; i ++ )
-&#x9;{
-&#x9;&#x9;int u, v;
-
-&#x9;&#x9;printf( &#x22;Input an edge -&#x3E; &#x22; );
-&#x9;&#x9;scanf( &#x22;%d%d&#x22;, &#x26;u, &#x26;v );
-
-&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
-&#x9;&#x9;adj[ v ][ deg[ v ] ++ ] = u;
-&#x9;}
-
-&#x9;int start, end;
-&#x9;printf( &#x22;Input start and end -&#x3E; &#x22; );
-&#x9;scanf( &#x22;%d%d&#x22;, &#x26;start, &#x26;end );
-
-&#x9;bfs( start, end );
-}
-			</code></pre>
-
-			<h2>Depth first search</h2>
-			<pre><code>
-#include &#x3C;stdio.h&#x3E;
-#include &#x3C;string.h&#x3E;
-#define NN 1024
-#define CLR( x ) memset( x, 0, sizeof( x ) )
-
-int adj[ NN ][ NN ], deg[ NN ], visited[ NN ];
-
-void dfs( int current )
-{
-&#x9;if( visited[ current ] )
-&#x9;{
-&#x9;&#x9;return;
-&#x9;}
-
-&#x9;visited[ current ] = 1;
-&#x9;for( int i = 0; i &#x3C; deg[ current ]; i ++ )
-&#x9;{
-&#x9;&#x9;dfs( adj[ current ][ i ] );
-&#x9;}
-}
-
-int main()
-{
-&#x9;int V, E;
-
-&#x9;printf( &#x22;input number of vertecies -&#x3E; &#x22; );
-&#x9;scanf( &#x22;%d&#x22;, &#x26;V);
-
-&#x9;printf( &#x22;input number of edges -&#x3E; &#x22; );
-&#x9;scanf( &#x22;%d&#x22;, &#x26;E);
-
-&#x9;CLR( deg ); CLR( adj ); CLR( visited );
-
-&#x9;for( int i = 0; i &#x3C; E; i ++ )
-&#x9;{
-&#x9;&#x9;int u, v;
-&#x9;&#x9;printf( &#x22;input edge -&#x3E; &#x22; );
-&#x9;&#x9;scanf( &#x22;%d%d&#x22;, &#x26;u, &#x26;v );
-
-&#x9;&#x9;adj[ u ][ deg[ u ] ++ ] = v;
-&#x9;&#x9;adj[ v ][ deg[ v ] ++ ] = u;
-&#x9;}
-
-&#x9;int start;
-
-&#x9;printf( &#x22;input start node -&#x3E; &#x22; );
-&#x9;scanf( &#x22;%d&#x22;, &#x26;start );
-
-&#x9;dfs( start );
-
-&#x9;printf( &#x22;|%15s|%15s|\n&#x22;, &#x22;vertex&#x22;, &#x22;visited&#x22; );
-&#x9;for( int i = 0; i &#x3C; V; i ++ )
-&#x9;{
-&#x9;&#x9;printf( &#x22;|%15d|%15d|\n&#x22;, i, visited[ i ] );
-&#x9;}
-}
-			</code></pre>
+</pre></code>
 
 		</div>
 	</body>
